@@ -1,4 +1,4 @@
-package jp.camluck.mura.customimageview;
+package jp.comeluck.mura.customimageview;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("jp.camluck.mura.customimageview", appContext.getPackageName());
+        assertEquals("jp.comeluck.mura.customimageview", appContext.getPackageName());
     }
 }

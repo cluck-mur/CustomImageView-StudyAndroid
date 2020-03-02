@@ -1,4 +1,4 @@
-package jp.camluck.mura.customimageview;
+package jp.comeluck.mura.customimageview;
 
 import android.content.Context;
 import android.os.Handler;
@@ -7,22 +7,15 @@ import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.io.File;
-
 public class MyImageView extends ImageView {
-    // 外部からもらうデータ
-    private String PackageName;
     // 待機時間
-    private int MilliSec = 100;
-    private int CurrentImageIndex;
-    private List<String> Images;
+    private int MilliSec = 50;
+    // アニメフレームを管理するオブジェクト
+    private BallAnimeFrames AnimeMan = new BallAnimeFrames(this);
 
     // スレッドUI操作用ハンドラ
     private Handler MyHandler = new Handler();
-    // アニメ処理（テキスト更新処理）
+    // アニメ処理（イメージ更新処理）
     private Runnable UpdateImage = new Runnable() {
         public void run() {
             // イメージの更新
@@ -81,31 +74,8 @@ public class MyImageView extends ImageView {
      */
     //public void Init(String packagename) {
     public void Init() {
-        // パッケージ名を保存
-        //PackageName = packagename;
-        PackageName = this.getClass().getPackage().getName();
-
-        // 現在表示しているイメージのインデックスを初期化
-        int CurrentImageIndex = 0;
-        // イメージのリストを初期化
-        Images = new ArrayList<String>();
-        Images.add("ani01");
-        Images.add("ani02");
-        Images.add("ani03");
-        Images.add("ani04");
-        Images.add("ani05");
-        Images.add("ani06");
-        Images.add("ani07");
-        Images.add("ani08");
-        Images.add("ani07");
-        Images.add("ani06");
-        Images.add("ani05");
-        Images.add("ani04");
-        Images.add("ani03");
-        Images.add("ani02");
-
         // 最初のイメージを表示
-        int imageId = getResources().getIdentifier(Images.get(CurrentImageIndex), "drawable", PackageName);
+        int imageId = AnimeMan.GetCurrentFrameResourceId();
         this.setImageResource(imageId);
 
         // アニメ開始
@@ -116,15 +86,11 @@ public class MyImageView extends ImageView {
      * 新しいイメージをセットする
      */
     public void SetNextImage() {
-        // 現在表示中イメージのインデックスを更新
-        if (CurrentImageIndex < (Images.size() - 1)) {
-            CurrentImageIndex++;
-        } else {
-            CurrentImageIndex = 0;
-        }
+        // 次のフレームへ
+        AnimeMan.Next();
 
-        // 新しいイメージを表示
-        int imageId = getResources().getIdentifier(Images.get(CurrentImageIndex), "drawable", PackageName);
+        // 次フレームのイメージを表示
+        int imageId = AnimeMan.GetCurrentFrameResourceId();
         this.setImageResource(imageId);
     }
 }

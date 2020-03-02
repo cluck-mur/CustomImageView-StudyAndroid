@@ -1,4 +1,4 @@
-package jp.camluck.mura.customimageview;
+package jp.comeluck.mura.customimageview;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +12,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         MyImageView my_image_view = findViewById(R.id.imageView);
-        //my_image_view.Init(getPackageName());
         my_image_view.Init();
     }
 }

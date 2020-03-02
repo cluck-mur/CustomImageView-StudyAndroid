@@ -1,4 +1,4 @@
-package jp.camluck.mura.customimageview;
+package jp.comeluck.mura.customimageview;
 
 import org.junit.Test;
 
